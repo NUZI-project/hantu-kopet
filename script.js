@@ -1,103 +1,63 @@
-class Hantu {
-    constructor(id, jenis, level = 1) {
-        this.id = id;
-        this.jenis = jenis;
-        this.level = level;
-    }
-    getImg() {
-        let evo = 1;
-        if(this.level >= 30) evo = 3;
-        else if(this.level >= 10) evo = 2;
-        return `assets/char/${this.jenis}_${evo}.png`;
-    }
-}
+let inventory = JSON.parse(localStorage.getItem('hantu_inventory')) || [];
+const hantuList = ['genderowo', 'pocong', 'kunti', 'tuyul', 'iblis'];
 
-let database = JSON.parse(localStorage.getItem('hantu_kopet_db')) || [];
-let koleksi = database.map(h => new Hantu(h.id, h.jenis, h.level));
-let hantuAktif = null;
-
-// ALUR: STARTING -> LOADING -> MULAI
+// 1. LOADING 5 DETIK
 window.onload = () => {
-    let bar = document.getElementById('bar-inner');
-    let progress = 0;
-    let loadingInterval = setInterval(() => {
-        progress += 2;
-        bar.style.width = progress + "%";
-        if(progress >= 100) {
-            clearInterval(loadingInterval);
+    const fill = document.getElementById('fill');
+    const status = document.getElementById('status-text');
+    let p = 0;
+    let t = setInterval(() => {
+        p++;
+        fill.style.width = p + '%';
+        if(p === 40) status.innerText = "Mempersiapkan Ritual...";
+        if(p === 80) status.innerText = "Menjemput Khodam...";
+        if(p >= 100) {
+            clearInterval(t);
             document.getElementById('sfx_start').play();
-            pindahHalaman('page-mulai');
+            showPage('p2');
         }
-    }, 70);
+    }, 50); 
 };
 
-function pindahHalaman(id) {
+function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
+    if(id === 'p5') document.getElementById('p5').style.display = 'block';
+    else document.getElementById('p5').style.display = 'none';
 }
 
-function masukBeranda() {
-    document.getElementById('sfx_click').play();
+function goToHome() {
+    playSfx('sfx_click');
     document.getElementById('bgm').play();
-    pindahHalaman('page-home');
+    showPage('p3');
 }
 
-function mulaiPanggil() {
-    document.getElementById('sfx_click').play();
-    pindahHalaman('page-ritual');
-    document.getElementById('sfx_mantra').play();
+// 2. RITUAL PANGGIL 5 DETIK
+function startRitual() {
+    playSfx('sfx_ritual');
+    showPage('p4');
     setTimeout(() => {
-        const daftar = ['pocong','kunti','tuyul','genderowo','iblis','zombie','suster','nenek'];
-        const jenis = daftar[Math.floor(Math.random() * daftar.length)];
-        const baru = new Hantu(Date.now(), jenis);
-        koleksi.push(baru);
-        simpan();
-        alert("Berhasil memanggil " + jenis.toUpperCase() + "!");
-        pindahHalaman('page-home');
-    }, 3000);
+        const hantu = hantuList[Math.floor(Math.random()*hantuList.length)];
+        inventory.push({ name: hantu, date: new Date().toLocaleDateString() });
+        localStorage.setItem('hantu_inventory', JSON.stringify(inventory));
+        alert("Kamu Mendapatkan: " + hantu.toUpperCase());
+        showPage('p3');
+    }, 5000);
 }
 
-function bukaKoleksi() {
-    document.getElementById('sfx_click').play();
-    const container = document.getElementById('list-container');
-    container.innerHTML = '';
-    koleksi.forEach(h => {
-        const item = document.createElement('div');
-        item.className = 'ghost-item';
-        item.innerHTML = `<img src="${h.getImg()}"><p class="gold-text">LV.${h.level} ${h.jenis.toUpperCase()}</p>`;
-        item.onclick = () => bukaDetail(h);
-        container.appendChild(item);
+function showKoleksi() {
+    playSfx('sfx_click');
+    const list = document.getElementById('ghost-list');
+    list.innerHTML = '';
+    inventory.forEach(item => {
+        list.innerHTML += `
+            <div class="ghost-card">
+                <img src="assets/char/${item.name}_1.png">
+                <p style="color:#d4af37; font-weight:bold;">${item.name.toUpperCase()}</p>
+            </div>`;
     });
-    pindahHalaman('page-koleksi');
+    showPage('p5');
 }
 
-function bukaDetail(h) {
-    hantuAktif = h;
-    document.getElementById('img-detail').src = h.getImg();
-    document.getElementById('nama-detail').innerText = h.jenis.toUpperCase();
-    document.getElementById('lv-detail').innerText = "Level saat ini: " + h.level;
-    document.getElementById('modal-detail').style.display = 'flex';
-}
-
-function latihKhodam() {
-    if(hantuAktif.level < 30) {
-        hantuAktif.level++;
-        const sfx = document.getElementById('sfx_evo');
-        sfx.volume = 1.0;
-        if(hantuAktif.level == 10 || hantuAktif.level == 30) sfx.play();
-        else document.getElementById('sfx_click').play();
-        simpan();
-        bukaDetail(hantuAktif);
-    } else { alert("Sudah mencapai batas gaib!"); }
-}
-
-function lepasKhodam() {
-    if(confirm("Lepas khodam ini?")) {
-        koleksi = koleksi.filter(x => x.id !== hantuAktif.id);
-        simpan(); tutupModal(); bukaKoleksi();
-    }
-}
-
-function simpan() { localStorage.setItem('hantu_kopet_db', JSON.stringify(koleksi)); }
-function tutupModal() { document.getElementById('modal-detail').style.display = 'none'; }
-function keBeranda() { pindahHalaman('page-home'); }
+function goBack() { playSfx('sfx_click'); showPage('p3'); }
+function playSfx(id) { const s = document.getElementById(id); s.currentTime = 0; s.play(); }
