@@ -105,5 +105,4 @@ function lepas(i) {
         localStorage.setItem('hantu_inventory', JSON.stringify(inventory));
         showKoleksi();
     }
-                       }
-                                                        
+}
