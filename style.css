@@ -1,38 +1,133 @@
+/* DASAR FULL SCREEN */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body, html { height: 100%; width: 100%; background: #000; font-family: 'serif'; overflow: hidden; }
+body, html { 
+    height: 100%; 
+    width: 100%; 
+    background: #000; 
+    font-family: 'Georgia', serif; 
+    overflow: hidden; /* Menghilangkan scroll luar */
+}
 
-#game-container { position: relative; width: 100%; height: 100%; max-width: 500px; margin: 0 auto; overflow: hidden; }
+#game-container { 
+    position: relative; 
+    width: 100%; 
+    height: 100vh; /* Mengikuti tinggi layar HP */
+    margin: 0 auto; 
+    overflow: hidden;
+}
 
-.page { display: none; position: absolute; inset: 0; width: 100%; height: 100%; flex-direction: column; align-items: center; background-size: cover; background-position: center; }
+.page { 
+    display: none; 
+    position: absolute; 
+    inset: 0; 
+    width: 100%; 
+    height: 100%; 
+    flex-direction: column; 
+    align-items: center; 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+}
+
 .active { display: flex; z-index: 10; }
 
-/* BACKGROUNDS BERDASARKAN GAMBAR */
+/* BACKGROUNDS */
 .loading-bg { background-image: url('assets/bg/bg_starting.png'); }
-.black-bg { background: #000; }
 .home-bg { background-image: url('assets/bg/beranda.gif'); }
 .ritual-bg { background-image: url('assets/bg/bg_ritual.png'); }
-.dark-bg, .detail-bg { background: #0a0a0a; }
+.dark-bg, .detail-bg { background: radial-gradient(circle, #1a0000, #000); }
 
-/* TATA LETAK TOMBOL & LOADING (PERSIS GAMBAR) */
-.bottom-loader { position: absolute; bottom: 10%; width: 80%; text-align: center; }
-.loader-bar { width: 100%; height: 10px; background: #222; border: 1px solid #444; border-radius: 5px; margin-top: 10px; overflow: hidden; }
-#fill { width: 0%; height: 100%; background: red; box-shadow: 0 0 10px red; }
+/* --- PERBAIKAN HALAMAN MULAI RITUAL (P2) --- */
+.black-bg { 
+    background: black; 
+    justify-content: center; 
+}
+.title-glow { 
+    color: #d4af37; 
+    font-size: 2.5rem; 
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.8); 
+    margin-bottom: 40px;
+}
+.btn-gate { 
+    background: linear-gradient(#400, #200); 
+    border: 2px solid #d4af37; 
+    color: white; 
+    padding: 15px 40px; 
+    border-radius: 50px; 
+    font-size: 1.2rem; 
+    box-shadow: 0 0 15px red; 
+    cursor: pointer;
+}
 
-.bottom-nav { position: absolute; bottom: 5%; width: 90%; display: flex; gap: 10px; justify-content: center; }
-.btn-game { flex: 1; background: linear-gradient(#500, #200); border: 2px solid #d4af37; color: #fff; padding: 15px 5px; border-radius: 8px; font-weight: bold; font-size: 0.8rem; cursor: pointer; }
+/* --- PERBAIKAN PEMANGGILAN / KOMAT KAMIT (P4) --- */
+.ritual-content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.4); /* Memberi kesan redup mistis */
+}
+.ritual-text { 
+    color: #d4af37; 
+    font-size: 2.2rem; 
+    text-shadow: 2px 2px 10px #000; 
+    font-weight: bold; 
+}
 
-.title-top { margin-top: 15%; font-size: 2.5rem; letter-spacing: 3px; }
-.gold-text { color: #d4af37; text-shadow: 0 0 10px #000; }
-.gold-text-small { color: #d4af37; font-size: 0.9rem; }
+/* --- PERBAIKAN DETAIL HANTU (P6) --- */
+.detail-box { 
+    width: 100%; 
+    height: 100%; 
+    padding: 20px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    color: white; 
+}
+.img-detail-container {
+    width: 90%;
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+.img-detail { 
+    max-width: 100%; 
+    max-height: 100%; 
+    object-fit: contain; 
+    filter: drop-shadow(0 0 15px red); 
+}
+.info-frame {
+    width: 100%;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid #d4af37;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
 
-/* RITUAL */
-.ritual-text { margin-top: 45%; color: #d4af37; font-size: 2rem; text-shadow: 0 0 20px #000; font-weight: bold; }
+/* NAVIGATION */
+.bottom-nav { 
+    position: absolute; 
+    bottom: 30px; 
+    width: 95%; 
+    display: flex; 
+    gap: 10px; 
+}
+.btn-game { 
+    flex: 1; 
+    background: rgba(139, 0, 0, 0.8); 
+    border: 1px solid #d4af37; 
+    color: white; 
+    padding: 15px 5px; 
+    border-radius: 5px; 
+    font-size: 0.75rem; 
+    font-weight: bold;
+}
 
-/* KOLEKSI & DETAIL */
-.grid-container { width: 100%; padding: 100px 15px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; overflow-y: auto; }
-.card { background: #111; border: 1px solid #333; padding: 10px; border-radius: 10px; text-align: center; }
-.card img { width: 100%; height: 120px; object-fit: contain; }
-
-.detail-box { width: 100%; height: 100%; padding: 20px; text-align: center; color: white; overflow-y: auto; }
-.img-detail { width: 80%; filter: drop-shadow(0 0 20px red); margin: 20px 0; }
-.btn-evolve { background: gold; color: black; padding: 15px 30px; border-radius: 30px; font-weight: bold; border: none; margin-top: 15px; width: 80%; }
+/* LOADING BAR DI BAWAH */
+.bottom-loader { position: absolute; bottom: 8%; width: 80%; }
+.loader-bar { width: 100%; height: 8px; background: #222; border-radius: 10px; overflow: hidden; }
+#fill { height: 100%; background: red; width: 0%; box-shadow: 0 0 10px red; }
