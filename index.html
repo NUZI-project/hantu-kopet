@@ -3,79 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Hantu Kopet</title>
+    <title>Game Sederhana</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
-    <audio id="bgm" src="assets/sound/backsound_game.mp3" loop></audio>
-    <audio id="sfx_click" src="assets/sound/click.mp3"></audio>
-    <audio id="sfx_start" src="assets/sound/sound_starting.mp3"></audio>
-    <audio id="sfx_mantra" src="assets/sound/sound_pemanggilan.mp3"></audio>
-    <audio id="sfx_evo" src="assets/sound/evolve.mp3"></audio>
+    <div id="game-container">
+        <audio id="bgm" src="assets/sound/backsound_game.mp3" loop></audio>
+        <audio id="sfx_start" src="assets/sound/sound_starting.mp3"></audio>
+        <audio id="sfx_click" src="assets/sound/click.mp3"></audio>
+        <audio id="sfx_ritual" src="assets/sound/sound_ritual.mp3"></audio>
 
-    <section id="page-starting" class="page active">
-        <img src="assets/bg/bg_starting.png" class="bg-v">
-        <div class="overlay-content">
-            <h1 class="gold-text">HANTU <span class="red-text">KOPET</span></h1>
+        <section id="p1" class="page active loading-bg">
             <div class="loader-container">
-                <p id="load-status">Menghubungi Alam Gaib...</p>
-                <div class="bar-outer">
-                    <div id="bar-inner"></div>
-                </div>
+                <div class="loader-text" id="status-text">Menyiapkan Sesajen...</div>
+                <div class="loader-bar"><div id="fill"></div></div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="page-mulai" class="page">
-        <img src="assets/bg/bg_starting.png" class="bg-v">
-        <div class="overlay-content">
+        <section id="p2" class="page starting-bg">
             <h1 class="gold-text">HANTU KOPET</h1>
-            <p class="subtitle">Sesajen Telah Siap</p>
-            <button class="btn-gold" onclick="masukBeranda()">MULAI RITUAL</button>
-        </div>
-    </section>
+            <button class="btn-ritual" onclick="goToHome()">MULAI RITUAL</button>
+        </section>
 
-    <section id="page-home" class="page">
-        <img src="assets/bg/beranda.gif" class="bg-v">
-        <div class="overlay-content scrollable">
-            <h1 class="gold-text title-main">HANTU KOPET</h1>
-            <div class="menu-box">
-                <button class="btn-gold" onclick="mulaiPanggil()">🔥 PANGGIL HANTU</button>
-                <button class="btn-gold" onclick="bukaKoleksi()">📜 KOLEKSI KODAM</button>
+        <section id="p3" class="page home-bg">
+            <h1 class="gold-text" style="position: absolute; top: 10%;">HANTU KOPET</h1>
+            <div class="menu-container">
+                <button class="btn-ritual" onclick="startRitual()">PANGGIL HANTU</button>
+                <button class="btn-ritual" onclick="showKoleksi()">KOLEKSI KODAM</button>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="page-ritual" class="page">
-        <img src="assets/bg/bg_pemanggilan.png" class="bg-v">
-        <div class="overlay-content">
-            <h2 class="gold-text mantra-anim">KOMAT KAMIT...</h2>
-        </div>
-    </section>
+        <section id="p4" class="page ritual-bg">
+            <h1 class="gold-text" style="color: #ffff00;">KOMAT KAMIT...</h1>
+        </section>
 
-    <section id="page-koleksi" class="page">
-        <div class="navbar">
-            <button class="btn-back" onclick="keBeranda()">⬅</button>
-            <h2 class="gold-text">DAFTAR KODAM</h2>
-        </div>
-        <div id="list-container" class="ghost-grid scrollable"></div>
-    </section>
-
-    <div id="modal-detail" class="modal">
-        <div class="modal-card scrollable">
-            <div class="frame-hantu">
-                <img id="img-detail" src="" alt="hantu">
+        <section id="p5" class="page koleksi-page">
+            <div class="scroll-area">
+                <button class="btn-back" onclick="goBack()">KEMBALI</button>
+                <h1 class="gold-text">KOLEKSI KODAM</h1>
+                <div id="ghost-list" class="ghost-grid"></div>
             </div>
-            <h2 id="nama-detail" class="gold-text"></h2>
-            <p id="lv-detail" class="lv-text"></p>
-            <div class="action-box">
-                <button class="btn-gold btn-full" onclick="latihKhodam()">LATIH (EVOLUSI)</button>
-                <button class="btn-gold btn-full btn-red" onclick="lepasKhodam()">LEPAS</button>
-                <button class="btn-close" onclick="tutupModal()">TUTUP</button>
-            </div>
-        </div>
+        </section>
     </div>
 
     <script src="script.js"></script>
