@@ -1,31 +1,30 @@
 let inventory = JSON.parse(localStorage.getItem('hantu_inventory')) || [];
 const dbHantu = [
-    { id: 'genderowo', name: 'Genderowo', desc: 'Penghuni pohon besar yang sangat kuat.' },
-    { id: 'pocong', name: 'Pocong', desc: 'Hantu yang melompat mencari keadilan.' },
-    { id: 'kunti', name: 'Kuntilanak', desc: 'Hantu wanita dengan tawa yang mengerikan.' },
-    { id: 'tuyul', name: 'Tuyul Sakti', desc: 'Kecil-kecil jago mencari kekayaan.' }
+    { id: 'genderowo', name: 'Genderowo', desc: 'Raja jin penghuni pohon tua yang angker.' },
+    { id: 'pocong', name: 'Pocong', desc: 'Arwah penasaran yang terikat tali kafan.' },
+    { id: 'kunti', name: 'Kuntilanak', desc: 'Wanita berbaju putih dengan tawa melengking.' },
+    { id: 'tuyul', name: 'Tuyul Sakti', desc: 'Makhluk kecil lincah pencari kepingan emas.' }
 ];
 
-// 1. STARTING 5 DETIK
+// 1. LOADING & SFX STARTING (5 DETIK)
 window.onload = () => {
-    const sfxStart = document.getElementById('sfx_start');
     const fill = document.getElementById('fill');
-    const statusText = document.getElementById('status-text');
+    const status = document.getElementById('status-text');
+    const sfx = document.getElementById('sfx_start');
     
-    // Play SFX Starting
-    sfxStart.play().catch(() => console.log("Interaksi dibutuhkan untuk suara"));
+    sfx.play().catch(() => console.log("User interaction needed"));
 
-    let progress = 0;
-    let timer = setInterval(() => {
-        progress++;
-        fill.style.width = progress + '%';
-        if(progress == 30) statusText.innerText = "Membakar Menyan...";
-        if(progress == 70) statusText.innerText = "Memanggil Arwah...";
-        if(progress >= 100) {
-            clearInterval(timer);
+    let p = 0;
+    let t = setInterval(() => {
+        p++;
+        fill.style.width = p + '%';
+        if(p == 40) status.innerText = "Membakar Kemenyan...";
+        if(p == 80) status.innerText = "Membuka Gerbang Gaib...";
+        if(p >= 100) {
+            clearInterval(t);
             showPage('p2');
         }
-    }, 50); // 50ms * 100 = 5 detik
+    }, 50);
 };
 
 function showPage(id) {
@@ -44,11 +43,11 @@ function startRitual() {
     playSfx('sfx_ritual');
     showPage('p4');
     setTimeout(() => {
-        const hantuAsli = dbHantu[Math.floor(Math.random() * dbHantu.length)];
-        const hantuBaru = { ...hantuAsli, lvl: 1, xp: 0, uid: Date.now() };
-        inventory.push(hantuBaru);
+        const h = dbHantu[Math.floor(Math.random() * dbHantu.length)];
+        const baru = { ...h, lvl: 1, uid: Date.now() };
+        inventory.push(baru);
         localStorage.setItem('hantu_inventory', JSON.stringify(inventory));
-        alert("Khodam Muncul: " + hantuBaru.name);
+        alert("Kamu mendapatkan: " + h.name);
         showPage('p3');
     }, 5000);
 }
@@ -62,29 +61,29 @@ function showKoleksi() {
         list.innerHTML += `
             <div class="ghost-item" onclick="showDetail(${i})">
                 <img src="assets/char/${h.id}_1.png" onerror="this.src='assets/char/default.png'">
-                <p style="color:#d4af37; margin-top:5px;">${h.name}</p>
-                <small>LVL ${h.lvl}</small>
+                <p style="color:#d4af37; font-weight:bold;">${h.name}</p>
+                <small>LEVEL ${h.lvl}</small>
             </div>`;
     });
     showPage('p5');
 }
 
-// 6. DETAIL (NAIK LEVEL & LEPAS)
+// 6. DETAIL, EVOLUSI & LEPAS
 function showDetail(i) {
     playSfx('sfx_click');
     const h = inventory[i];
-    const detail = document.getElementById('detail-content');
-    detail.innerHTML = `
-        <button class="btn-main" style="width:100px; padding:5px" onclick="showPage('p5')">KEMBALI</button>
-        <h2 class="gold-text">${h.name}</h2>
+    const d = document.getElementById('detail-content');
+    d.innerHTML = `
+        <button class="btn-small" onclick="showPage('p5')">BALIK</button>
+        <h2 class="gold-text" style="margin-top:15px;">${h.name}</h2>
         <img src="assets/char/${h.id}_1.png" class="img-detail">
-        <p style="color:#ccc; font-style:italic;">"${h.desc}"</p>
-        <div style="margin:20px; padding:10px; border:1px dashed #d4af37">
-            <p>LEVEL: ${h.lvl}</p>
-            <p>POWER: ${h.lvl * 25}</p>
+        <p style="color:#bbb; padding:0 20px;">${h.desc}</p>
+        <div style="margin:20px; border:1px solid #d4af37; padding:10px;">
+            <p>STATUS: KHODAM LEVEL ${h.lvl}</p>
+            <p>KEKUATAN: ${h.lvl * 100} POINT</p>
         </div>
         <button class="btn-main" onclick="naikLevel(${i})">NAIK LEVEL (EVOLUSI)</button>
-        <button class="btn-main" style="background:linear-gradient(#555, #222)" onclick="lepasHantu(${i})">LEPAS KHODAM</button>
+        <button class="btn-main" style="background:#333" onclick="lepas(${i})">LEPAS KHODAM</button>
     `;
     showPage('p6');
 }
@@ -92,18 +91,18 @@ function showDetail(i) {
 function naikLevel(i) {
     playSfx('sfx_ritual');
     inventory[i].lvl += 1;
-    saveData();
-    alert("Level Up! Sekarang Level " + inventory[i].lvl);
+    save();
+    alert("Evolusi Berhasil! Level Naik!");
     showDetail(i);
 }
 
-function lepasHantu(i) {
-    if(confirm("Apakah kamu yakin ingin melepas khodam ini?")) {
+function lepas(i) {
+    if(confirm("Lepas khodam ini ke alamnya?")) {
         inventory.splice(i, 1);
-        saveData();
+        save();
         showKoleksi();
     }
 }
 
-function saveData() { localStorage.setItem('hantu_inventory', JSON.stringify(inventory)); }
+function save() { localStorage.setItem('hantu_inventory', JSON.stringify(inventory)); }
 function playSfx(id) { const s = document.getElementById(id); s.currentTime = 0; s.play(); }
