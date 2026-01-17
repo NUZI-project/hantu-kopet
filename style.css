@@ -1,49 +1,71 @@
-:root { --gold: #d4af37; --red: #ff0000; --black: #000; }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-body, html { margin: 0; padding: 0; height: 100%; width: 100%; background: #000; overflow: hidden; font-family: 'Segoe UI', sans-serif; }
-
-/* FIX BACKGROUND VERTIKAL */
-.bg-v { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.4); }
-
-.page { display: none; width: 100%; height: 100%; position: relative; }
-.active { display: flex; flex-direction: column; align-items: center; justify-content: center; animation: fadeIn 0.5s; }
-
-.overlay-content { width: 100%; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-.scrollable { overflow-y: auto; max-height: 100%; padding-bottom: 40px; }
-
-/* TEXT STYLE */
-.gold-text { color: var(--gold); text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); text-align: center; margin: 10px 0; }
-.red-text { color: var(--red); }
-.lv-text { font-weight: bold; color: #fff; margin-bottom: 15px; }
-
-/* BUTTONS */
-.btn-gold { 
-    background: linear-gradient(#500, #100); border: 2px solid var(--gold); 
-    color: var(--gold); padding: 15px 30px; border-radius: 12px; 
-    font-weight: bold; cursor: pointer; width: 260px; margin: 10px 0;
-    flex-shrink: 0;
+body, html { 
+    height: 100%; width: 100%; 
+    background: #000; 
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
 }
-.btn-full { width: 100%; }
-.btn-red { background: #300; border-color: var(--red); color: var(--red); }
-.btn-back { background: none; border: 1px solid var(--gold); color: var(--gold); border-radius: 8px; padding: 5px 15px; cursor: pointer; }
+
+#game-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.page {
+    display: none;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+}
+
+.active { display: flex; }
+
+/* BACKGROUNDS */
+.loading-bg { background-image: url('assets/bg/bg_starting.png'); }
+.starting-bg { background: #000; }
+.home-bg { background-image: url('assets/bg/beranda.gif'); }
+.ritual-bg { background-image: url('assets/bg/bg_ritual.png'); }
+
+/* TEXT & BUTTONS */
+.gold-text {
+    color: #d4af37;
+    text-shadow: 2px 2px 10px #000;
+    text-align: center;
+    font-weight: bold;
+}
+
+.btn-ritual {
+    background: linear-gradient(#800, #300);
+    border: 2px solid #d4af37;
+    color: #d4af37;
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-weight: bold;
+    margin: 10px 0;
+    cursor: pointer;
+    width: 250px;
+}
 
 /* LOADING BAR */
-.loader-container { width: 80%; margin-top: 20px; }
-.bar-outer { width: 100%; height: 12px; background: #222; border: 1px solid var(--gold); border-radius: 6px; overflow: hidden; }
-#bar-inner { width: 0%; height: 100%; background: var(--red); }
+.loader-container { width: 80%; position: absolute; bottom: 15%; }
+.loader-bar { width: 100%; height: 10px; background: #222; border: 1px solid #d4af37; border-radius: 5px; overflow: hidden; }
+#fill { width: 0%; height: 100%; background: #f00; }
 
-/* GRID KOLEKSI */
-.navbar { width: 100%; padding: 15px; display: flex; align-items: center; background: rgba(0,0,0,0.8); border-bottom: 1px solid var(--gold); z-index: 5; }
-.ghost-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; width: 100%; }
-.ghost-item { background: #111; border: 1px solid var(--gold); border-radius: 12px; padding: 10px; text-align: center; }
-.ghost-item img { width: 100%; max-height: 110px; object-fit: contain; }
-
-/* MODAL FIX */
-.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
-.modal-card { background: #080808; border: 2px solid var(--gold); width: 100%; max-width: 400px; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-.frame-hantu { width: 100%; max-height: 180px; display: flex; justify-content: center; margin-bottom: 15px; }
-.frame-hantu img { max-height: 180px; width: auto; object-fit: contain; }
-.btn-close { background: none; border: none; color: #666; margin-top: 15px; cursor: pointer; }
-
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+/* KOLEKSI */
+.koleksi-page { background: #0a0a0a; display: none; }
+.scroll-area { width: 100%; height: 100%; overflow-y: auto; padding: 20px; }
+.ghost-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+.ghost-card { background: #151515; border: 1px solid #d4af37; border-radius: 10px; padding: 10px; text-align: center; }
+.ghost-card img { width: 100%; height: 100px; object-fit: contain; }
+.btn-back { background: #333; color: #fff; border: 1px solid #d4af37; padding: 5px 15px; border-radius: 5px; }
