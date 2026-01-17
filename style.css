@@ -4,14 +4,14 @@ body, html {
     height: 100%; 
     width: 100%; 
     background: #000; 
-    font-family: 'Georgia', serif; 
-    overflow: hidden; /* Menghilangkan scroll luar */
+    font-family: 'serif'; 
+    overflow: hidden; 
 }
 
 #game-container { 
     position: relative; 
     width: 100%; 
-    height: 100vh; /* Mengikuti tinggi layar HP */
+    height: 100vh; 
     margin: 0 auto; 
     overflow: hidden;
 }
@@ -25,109 +25,69 @@ body, html {
     flex-direction: column; 
     align-items: center; 
     background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat;
+    background-position: center top; /* Fokus ke bagian atas gambar */
 }
 
 .active { display: flex; z-index: 10; }
+
+/* PEMBUNGKUS HALAMAN HOME */
+.home-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Menjaga judul di atas dan tombol di bawah */
+    padding: 40px 20px;
+}
 
 /* BACKGROUNDS */
 .loading-bg { background-image: url('assets/bg/bg_starting.png'); }
 .home-bg { background-image: url('assets/bg/beranda.gif'); }
 .ritual-bg { background-image: url('assets/bg/bg_ritual.png'); }
-.dark-bg, .detail-bg { background: radial-gradient(circle, #1a0000, #000); }
+.black-bg { background: #000; justify-content: center; }
 
-/* --- PERBAIKAN HALAMAN MULAI RITUAL (P2) --- */
-.black-bg { 
-    background: black; 
-    justify-content: center; 
-}
-.title-glow { 
-    color: #d4af37; 
-    font-size: 2.5rem; 
-    text-shadow: 0 0 20px rgba(212, 175, 55, 0.8); 
-    margin-bottom: 40px;
-}
-.btn-gate { 
-    background: linear-gradient(#400, #200); 
-    border: 2px solid #d4af37; 
-    color: white; 
-    padding: 15px 40px; 
-    border-radius: 50px; 
-    font-size: 1.2rem; 
-    box-shadow: 0 0 15px red; 
-    cursor: pointer;
-}
-
-/* --- PERBAIKAN PEMANGGILAN / KOMAT KAMIT (P4) --- */
-.ritual-content {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0,0,0,0.4); /* Memberi kesan redup mistis */
-}
-.ritual-text { 
-    color: #d4af37; 
-    font-size: 2.2rem; 
-    text-shadow: 2px 2px 10px #000; 
-    font-weight: bold; 
-}
-
-/* --- PERBAIKAN DETAIL HANTU (P6) --- */
-.detail-box { 
+/* TOMBOL DI BAWAH (BERANDA) */
+.bottom-nav { 
     width: 100%; 
-    height: 100%; 
-    padding: 20px; 
     display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    color: white; 
-}
-.img-detail-container {
-    width: 90%;
-    height: 40%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-}
-.img-detail { 
-    max-width: 100%; 
-    max-height: 100%; 
-    object-fit: contain; 
-    filter: drop-shadow(0 0 15px red); 
-}
-.info-frame {
-    width: 100%;
-    background: rgba(212, 175, 55, 0.1);
-    border: 1px solid #d4af37;
-    padding: 15px;
-    border-radius: 10px;
+    gap: 10px; 
     margin-bottom: 20px;
 }
 
-/* NAVIGATION */
-.bottom-nav { 
-    position: absolute; 
-    bottom: 30px; 
-    width: 95%; 
-    display: flex; 
-    gap: 10px; 
-}
 .btn-game { 
     flex: 1; 
-    background: rgba(139, 0, 0, 0.8); 
+    background: linear-gradient(to bottom, #8b0000, #4a0000); 
     border: 1px solid #d4af37; 
     color: white; 
     padding: 15px 5px; 
-    border-radius: 5px; 
-    font-size: 0.75rem; 
+    border-radius: 8px; 
+    font-size: 0.8rem; 
     font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    cursor: pointer;
 }
 
-/* LOADING BAR DI BAWAH */
-.bottom-loader { position: absolute; bottom: 8%; width: 80%; }
+/* JUDUL */
+.title-top { 
+    text-align: center;
+    color: #d4af37; 
+    font-size: 2.2rem; 
+    text-shadow: 2px 2px 10px #000;
+    margin-top: 20px;
+}
+
+.title-glow { 
+    color: #d4af37; 
+    font-size: 2.5rem; 
+    text-shadow: 0 0 20px gold; 
+    margin-bottom: 40px; 
+}
+
+/* LAIN-LAIN */
+.gold-text-small { color: #d4af37; font-size: 0.9rem; margin-bottom: 5px; }
+.bottom-loader { position: absolute; bottom: 10%; width: 80%; text-align: center; }
 .loader-bar { width: 100%; height: 8px; background: #222; border-radius: 10px; overflow: hidden; }
 #fill { height: 100%; background: red; width: 0%; box-shadow: 0 0 10px red; }
+
+.ritual-text { color: #d4af37; font-size: 2rem; margin-top: 50vh; font-weight: bold; }
