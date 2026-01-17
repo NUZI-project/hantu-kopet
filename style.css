@@ -1,93 +1,52 @@
-/* DASAR FULL SCREEN */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body, html { 
-    height: 100%; 
-    width: 100%; 
-    background: #000; 
-    font-family: 'serif'; 
-    overflow: hidden; 
-}
+body, html { height: 100%; width: 100%; background: #000; overflow: hidden; font-family: sans-serif; }
 
-#game-container { 
-    position: relative; 
-    width: 100%; 
-    height: 100vh; 
-    margin: 0 auto; 
-    overflow: hidden;
-}
+#game-container { position: relative; width: 100%; height: 100vh; overflow: hidden; }
 
 .page { 
-    display: none; 
-    position: absolute; 
-    inset: 0; 
-    width: 100%; 
-    height: 100%; 
-    flex-direction: column; 
-    align-items: center; 
-    background-size: cover; 
-    background-position: center top; /* Fokus ke bagian atas gambar */
+    display: none; position: absolute; inset: 0; width: 100%; height: 100%; 
+    background-size: cover; background-position: center; flex-direction: column;
 }
+.active { display: flex; z-index: 1; }
 
-.active { display: flex; z-index: 10; }
+/* UI LAYER - Memastikan tombol di atas gambar */
+.ui-layer { position: absolute; z-index: 100; width: 100%; pointer-events: auto; text-align: center; }
 
-/* PEMBUNGKUS HALAMAN HOME */
-.home-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Menjaga judul di atas dan tombol di bawah */
-    padding: 40px 20px;
-}
-
-/* BACKGROUNDS */
+/* BG IMAGES */
 .loading-bg { background-image: url('assets/bg/bg_starting.png'); }
 .home-bg { background-image: url('assets/bg/beranda.gif'); }
 .ritual-bg { background-image: url('assets/bg/bg_ritual.png'); }
-.black-bg { background: #000; justify-content: center; }
+.black-bg { background: #000; }
+.dark-bg, .detail-bg { background: #0a0a0a; }
 
-/* TOMBOL DI BAWAH (BERANDA) */
-.bottom-nav { 
-    width: 100%; 
-    display: flex; 
-    gap: 10px; 
-    margin-bottom: 20px;
+/* POSITIONING */
+.bottom-loader { bottom: 10%; padding: 0 10%; }
+.bottom-nav { bottom: 30px; display: flex; gap: 10px; padding: 0 15px; }
+.top-header { top: 20px; }
+.center-content { top: 50%; transform: translateY(-50%); }
+
+/* BUTTONS */
+.btn-main { 
+    background: #800; color: #fff; border: 2px solid gold; padding: 15px 40px; 
+    border-radius: 50px; font-weight: bold; font-size: 1.2rem; box-shadow: 0 0 20px red;
 }
-
 .btn-game { 
-    flex: 1; 
-    background: linear-gradient(to bottom, #8b0000, #4a0000); 
-    border: 1px solid #d4af37; 
-    color: white; 
-    padding: 15px 5px; 
-    border-radius: 8px; 
-    font-size: 0.8rem; 
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-    cursor: pointer;
+    flex: 1; background: rgba(139, 0, 0, 0.9); border: 1px solid gold; 
+    color: #fff; padding: 18px 5px; border-radius: 8px; font-weight: bold; font-size: 0.8rem;
 }
+.btn-back { background: #333; color: gold; border: 1px solid gold; padding: 5px 15px; border-radius: 5px; }
 
-/* JUDUL */
-.title-top { 
-    text-align: center;
-    color: #d4af37; 
-    font-size: 2.2rem; 
-    text-shadow: 2px 2px 10px #000;
-    margin-top: 20px;
-}
-
-.title-glow { 
-    color: #d4af37; 
-    font-size: 2.5rem; 
-    text-shadow: 0 0 20px gold; 
-    margin-bottom: 40px; 
-}
-
-/* LAIN-LAIN */
-.gold-text-small { color: #d4af37; font-size: 0.9rem; margin-bottom: 5px; }
-.bottom-loader { position: absolute; bottom: 10%; width: 80%; text-align: center; }
-.loader-bar { width: 100%; height: 8px; background: #222; border-radius: 10px; overflow: hidden; }
+/* TEXT & LOADER */
+.gold-text { color: gold; text-shadow: 2px 2px 5px #000; }
+.gold-text-small { color: gold; font-size: 0.9rem; margin-bottom: 5px; }
+.title-glow { color: gold; font-size: 2.5rem; text-shadow: 0 0 15px red; margin-bottom: 30px; }
+.loader-bar { width: 100%; height: 10px; background: #222; border-radius: 10px; overflow: hidden; border: 1px solid #444; }
 #fill { height: 100%; background: red; width: 0%; box-shadow: 0 0 10px red; }
 
-.ritual-text { color: #d4af37; font-size: 2rem; margin-top: 50vh; font-weight: bold; }
+/* GRID & DETAIL */
+.grid-container { width: 100%; padding: 100px 15px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; overflow-y: auto; height: 100%; }
+.card { background: #1a1a1a; border: 1px solid #333; padding: 10px; border-radius: 10px; text-align: center; }
+.card img { width: 100%; height: 100px; object-fit: contain; }
+
+.detail-box { padding: 20px; color: #fff; display: flex; flex-direction: column; align-items: center; height: 100%; overflow-y: auto; }
+.ritual-text { color: gold; font-size: 2.2rem; text-shadow: 0 0 20px #000; }
