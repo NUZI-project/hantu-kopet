@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Hantu Kopet - Final</title>
+    <title>Hantu Kopet - Official</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,48 +14,43 @@
         <audio id="sfx_ritual" src="assets/sound/sound_ritual.mp3" preload="auto"></audio>
 
         <section id="p1" class="page active loading-bg">
-            <div class="overlay">
-                <div class="loader-box">
-                    <h2 class="gold-text flicker">MEMBUKA ALAM GAIB</h2>
-                    <div class="loader-bar"><div id="fill"></div></div>
-                    <p id="status-text" class="status">Menyiapkan Sesajen...</p>
-                </div>
+            <div class="bottom-loader">
+                <p id="status-text" class="gold-text-small">Menyiapkan Sesajen...</p>
+                <div class="loader-bar"><div id="fill"></div></div>
             </div>
         </section>
 
         <section id="p2" class="page black-bg">
-            <div class="center-content">
-                <h1 class="gold-text big-title">HANTU KOPET</h1>
-                <button class="btn-main pulse" onclick="goToHome()">MULAI RITUAL</button>
+            <div class="center-box">
+                <h1 class="gold-text title-glow">HANTU KOPET</h1>
+                <button class="btn-gate" onclick="goToHome()">MULAI RITUAL</button>
             </div>
         </section>
 
         <section id="p3" class="page home-bg">
-            <h1 class="gold-text home-title">HANTU KOPET</h1>
-            <div class="home-menu">
-                <button class="btn-main" onclick="startRitual()">PANGGIL HANTU</button>
-                <button class="btn-main" onclick="showKoleksi()">KOLEKSI HANTU</button>
+            <h1 class="gold-text title-top">HANTU KOPET</h1>
+            <div class="bottom-nav">
+                <button class="btn-game" onclick="startRitual()">🔥 PANGGIL HANTU</button>
+                <button class="btn-game" onclick="showKoleksi()">📜 KOLEKSI KODAM</button>
             </div>
         </section>
 
         <section id="p4" class="page ritual-bg">
-            <div class="ritual-overlay">
-                <div class="magic-circle"></div>
-                <h1 class="ritual-text">KOMAT KAMIT...</h1>
+            <div class="ritual-content">
+                <h2 class="ritual-text animate-pulse">KOMAT KAMIT...</h2>
             </div>
         </section>
 
         <section id="p5" class="page dark-bg">
-            <div class="nav-header">
-                <button class="btn-small" onclick="showPage('p3')">KEMBALI</button>
-                <h2 class="gold-text">DAFTAR KODAM</h2>
+            <div class="header-fix">
+                <button class="btn-back" onclick="showPage('p3')">KEMBALI</button>
+                <h2 class="gold-text">DAFTAR KHODAM</h2>
             </div>
-            <div id="ghost-list" class="ghost-grid"></div>
+            <div id="ghost-list" class="grid-container"></div>
         </section>
 
         <section id="p6" class="page detail-bg">
-            <div id="detail-content" class="detail-container">
-                </div>
+            <div id="detail-content" class="detail-box"></div>
         </section>
     </div>
     <script src="script.js"></script>
