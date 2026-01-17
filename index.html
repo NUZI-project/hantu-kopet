@@ -3,50 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Game Sederhana</title>
+    <title>Hantu Kopet - Masterpiece</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div id="game-container">
-        <audio id="bgm" src="assets/sound/backsound_game.mp3" loop></audio>
-        <audio id="sfx_start" src="assets/sound/sound_starting.mp3"></audio>
-        <audio id="sfx_click" src="assets/sound/click.mp3"></audio>
-        <audio id="sfx_ritual" src="assets/sound/sound_ritual.mp3"></audio>
+        <audio id="sfx_start" src="assets/sound/sound_starting.mp3" preload="auto"></audio>
+        <audio id="bgm" src="assets/sound/backsound_game.mp3" loop preload="auto"></audio>
+        <audio id="sfx_click" src="assets/sound/click.mp3" preload="auto"></audio>
+        <audio id="sfx_ritual" src="assets/sound/sound_ritual.mp3" preload="auto"></audio>
 
         <section id="p1" class="page active loading-bg">
-            <div class="loader-container">
-                <div class="loader-text" id="status-text">Menyiapkan Sesajen...</div>
-                <div class="loader-bar"><div id="fill"></div></div>
+            <div class="overlay">
+                <div class="loader-box">
+                    <h2 class="gold-text animate-flicker">MEMBUKA ALAM GAIB</h2>
+                    <div class="loader-bar"><div id="fill"></div></div>
+                    <p id="status-text">Menyan sedang dibakar...</p>
+                </div>
             </div>
         </section>
 
-        <section id="p2" class="page starting-bg">
-            <h1 class="gold-text">HANTU KOPET</h1>
-            <button class="btn-ritual" onclick="goToHome()">MULAI RITUAL</button>
+        <section id="p2" class="page black-bg">
+            <div class="content-box">
+                <h1 class="gold-text title-large">HANTU KOPET</h1>
+                <button class="btn-main" onclick="goToHome()">MULAI RITUAL</button>
+            </div>
         </section>
 
         <section id="p3" class="page home-bg">
-            <h1 class="gold-text" style="position: absolute; top: 10%;">HANTU KOPET</h1>
-            <div class="menu-container">
-                <button class="btn-ritual" onclick="startRitual()">PANGGIL HANTU</button>
-                <button class="btn-ritual" onclick="showKoleksi()">KOLEKSI KODAM</button>
+            <h1 class="gold-text title-top">HANTU KOPET</h1>
+            <div class="bottom-menu">
+                <button class="btn-main" onclick="startRitual()">PANGGIL KHODAM</button>
+                <button class="btn-main" onclick="showKoleksi()">KOLEKSI HANTU</button>
             </div>
         </section>
 
         <section id="p4" class="page ritual-bg">
-            <h1 class="gold-text" style="color: #ffff00;">KOMAT KAMIT...</h1>
-        </section>
-
-        <section id="p5" class="page koleksi-page">
-            <div class="scroll-area">
-                <button class="btn-back" onclick="goBack()">KEMBALI</button>
-                <h1 class="gold-text">KOLEKSI KODAM</h1>
-                <div id="ghost-list" class="ghost-grid"></div>
+            <div class="ritual-overlay">
+                <div class="magic-circle"></div>
+                <h2 class="ritual-text">KOMAT KAMIT...</h2>
             </div>
         </section>
-    </div>
 
+        <section id="p5" class="page dark-bg">
+            <div class="header-nav">
+                <button class="btn-back" onclick="showPage('p3')">← KEMBALI</button>
+                <h2 class="gold-text">DAFTAR KHODAM</h2>
+            </div>
+            <div id="ghost-list" class="ghost-grid"></div>
+        </section>
+
+        <section id="p6" class="page detail-bg">
+            <div id="detail-content" class="detail-card">
+                </div>
+        </section>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
