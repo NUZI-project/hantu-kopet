@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Hantu Kopet - Masterpiece</title>
+    <title>Hantu Kopet - Final</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,24 +16,24 @@
         <section id="p1" class="page active loading-bg">
             <div class="overlay">
                 <div class="loader-box">
-                    <h2 class="gold-text animate-flicker">MEMBUKA ALAM GAIB</h2>
+                    <h2 class="gold-text flicker">MEMBUKA ALAM GAIB</h2>
                     <div class="loader-bar"><div id="fill"></div></div>
-                    <p id="status-text">Menyan sedang dibakar...</p>
+                    <p id="status-text" class="status">Menyiapkan Sesajen...</p>
                 </div>
             </div>
         </section>
 
         <section id="p2" class="page black-bg">
-            <div class="content-box">
-                <h1 class="gold-text title-large">HANTU KOPET</h1>
-                <button class="btn-main" onclick="goToHome()">MULAI RITUAL</button>
+            <div class="center-content">
+                <h1 class="gold-text big-title">HANTU KOPET</h1>
+                <button class="btn-main pulse" onclick="goToHome()">MULAI RITUAL</button>
             </div>
         </section>
 
         <section id="p3" class="page home-bg">
-            <h1 class="gold-text title-top">HANTU KOPET</h1>
-            <div class="bottom-menu">
-                <button class="btn-main" onclick="startRitual()">PANGGIL KHODAM</button>
+            <h1 class="gold-text home-title">HANTU KOPET</h1>
+            <div class="home-menu">
+                <button class="btn-main" onclick="startRitual()">PANGGIL HANTU</button>
                 <button class="btn-main" onclick="showKoleksi()">KOLEKSI HANTU</button>
             </div>
         </section>
@@ -41,20 +41,20 @@
         <section id="p4" class="page ritual-bg">
             <div class="ritual-overlay">
                 <div class="magic-circle"></div>
-                <h2 class="ritual-text">KOMAT KAMIT...</h2>
+                <h1 class="ritual-text">KOMAT KAMIT...</h1>
             </div>
         </section>
 
         <section id="p5" class="page dark-bg">
-            <div class="header-nav">
-                <button class="btn-back" onclick="showPage('p3')">← KEMBALI</button>
-                <h2 class="gold-text">DAFTAR KHODAM</h2>
+            <div class="nav-header">
+                <button class="btn-small" onclick="showPage('p3')">KEMBALI</button>
+                <h2 class="gold-text">DAFTAR KODAM</h2>
             </div>
             <div id="ghost-list" class="ghost-grid"></div>
         </section>
 
         <section id="p6" class="page detail-bg">
-            <div id="detail-content" class="detail-card">
+            <div id="detail-content" class="detail-container">
                 </div>
         </section>
     </div>
